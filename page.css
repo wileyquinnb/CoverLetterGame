@@ -1,0 +1,29 @@
+body {
+    width: 50vw; 
+    margin: 0; 
+    padding: 30px; 
+    box-sizing: border-box; 
+    text-indent: 0;
+}
+
+button {
+    all: unset;
+    display: inline-block;
+    width: auto; 
+    height: auto; 
+    background: none; 
+    border: none; 
+    padding: 0; 
+    margin: 0; 
+    font: inherit; 
+    color: inherit; 
+    text-align: inherit; 
+    cursor: pointer; 
+    border-radius: 2px;
+  }
+
+  button:hover {
+    background: lightgray;
+    outline: 2px solid darkgray;
+    outline-offset: 0px;
+  }
