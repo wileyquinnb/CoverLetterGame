@@ -1,179 +1,141 @@
 
-// Turn all words in body text into buttons
+// Wait for the entire HTML document to be fully loaded before executing
 document.addEventListener("DOMContentLoaded", function () {
-    const body = document.body;
-    const textNodes = [];
+    const body = document.body; // Reference to the body element
+    const textNodes = []; // Array to store text nodes
+    let allText = ""; // Store all text content for later word selection
 
+    // Function to recursively extract text nodes from the document
     function extractTextNodes(node) {
         if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== "") {
-            textNodes.push(node);
+            textNodes.push(node); // Store the text node
+            allText += " " + node.nodeValue; // Accumulate text content
         } else if (node.nodeType === Node.ELEMENT_NODE) {
+            // Recursively process child nodes
             node.childNodes.forEach(extractTextNodes);
         }
     }
 
-    extractTextNodes(body);
+    extractTextNodes(body); // Start extraction from the body
 
+    // Replace each text node with buttons for each word
     textNodes.forEach(node => {
-        const bodyWords = node.nodeValue.split(/\s+/);
-        const fragment = document.createDocumentFragment();
+        const words = node.nodeValue.split(/\s+/); // Split text into words
+        const fragment = document.createDocumentFragment(); // Use a fragment for efficient DOM updates
 
-        bodyWords.forEach((word, index) => {
-            const button = document.createElement("button");
-            button.textContent = word;
-            fragment.appendChild(button);
+        words.forEach((word, index) => {
+            const button = document.createElement("button"); // Create a button element
+            button.textContent = word; // Set button text to the word
+            fragment.appendChild(button); // Append button to fragment
 
-            if (index < bodyWords.length - 1) {
+            // Preserve spaces between words
+            if (index < words.length - 1) {
                 fragment.appendChild(document.createTextNode(" "));
             }
         });
 
+        // Replace the text node with the new buttons in its parent
         node.parentNode.replaceChild(fragment, node);
     });
+
+    selectRandomWord(allText); // Select a random word from the extracted text
 });
 
 
-// Function to select a random >3 letter word
-window.onload = function () {
-    // Get all the text content from the body
-    const bodyText = document.body.innerText;
+// Function to select a random word with at least 4 alphabetic letters
+function selectRandomWord(text) {
+    // Convert text to lowercase and split into words
+    const words = text.toLowerCase().split(/\s+/).filter(word => /^[a-z]+$/.test(word) && word.length >= 4);
 
-    // Split the text into an array of words
-    const words = bodyText.split(/\s+/);
-
-    // Filter out any non-alphabetic words and words that are less than 4 letters long
-    const filteredWords = words.filter(word => /^[A-Za-z]+$/.test(word) && word.length >= 4);
-
-    // Check if there are any valid words with 4 or more letters
-    if (filteredWords.length > 0) {
-        // Select a random word from the filtered array
-        const randomWord = filteredWords[Math.floor(Math.random() * filteredWords.length)];
-
-        // Log the random word to the console
-        console.log('Random word (alphabetic and at least 4 letters):', randomWord);
-
-        // Calculate letter, vowel, and consonant counts for the selected word
-        const wordDetails = calculateWordDetails(randomWord);
-
-        // Add click event listener to buttons
-        addButtonClickListener(wordDetails, document.body, randomWord);
-
-        // Create buttons for each word in the body text
-        const body = document.body;
-        const textNodes = [];
-
-        function extractTextNodes(node) {
-            if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== "") {
-                textNodes.push(node);
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-                node.childNodes.forEach(extractTextNodes);
-            }
-        }
-
-        extractTextNodes(body);
-
-        textNodes.forEach(node => {
-            const bodyWords = node.nodeValue.split(/\s+/);
-            const fragment = document.createDocumentFragment();
-
-            bodyWords.forEach((word, index) => {
-                const button = document.createElement("button");
-                button.textContent = word;
-                fragment.appendChild(button);
-
-                if (index < bodyWords.length - 1) {
-                    fragment.appendChild(document.createTextNode(" "));
-                }
-            });
-
-            node.parentNode.replaceChild(fragment, node);
-        });
-    } else {
+    if (words.length === 0) {
         console.log('No valid word found with at least 4 alphabetic letters.');
+        return;
     }
-};
+
+    // Select a random word from the filtered list
+    const randomWord = words[Math.floor(Math.random() * words.length)];
+    console.log('Random word:', randomWord);
+
+    // Calculate details about the selected word
+    const wordDetails = calculateWordDetails(randomWord);
+
+    // Add event listeners to handle button clicks
+    addButtonClickListener(wordDetails, document.body, randomWord);
+}
 
 
-// Function to calculate the letter, vowel, and consonant counts for a word
+// Function to analyze the selected word
 function calculateWordDetails(word) {
-    // Convert the word to lowercase for case-insensitive comparison
-    const lowerCaseWord = word.toLowerCase();
-    const letterCount = lowerCaseWord.length;  // Total number of letters in the word
-    let vowelCount = 0;
-    let consonantCount = 0;
+    const lowerCaseWord = word.toLowerCase(); // Convert word to lowercase for consistency
+    const vowelsSet = new Set('aeiou'); // Define a set of vowels for quick lookup
+    let vowelCount = 0; // Counter for vowels
+    let consonantCount = 0; // Counter for consonants
+    let letters = {}; // Object to store individual letters
 
-    // Define vowels
-    const vowels = 'aeiou';
-
-    // Object to hold each letter as a variable
-    let letters = {};
-
-    // Iterate through each letter of the word
+    // Loop through each letter of the word
     for (let i = 0; i < lowerCaseWord.length; i++) {
         const letter = lowerCaseWord[i];
+        letters[`letter${i + 1}`] = letter; // Store letter in object
 
-        // Store each letter in the object as a dynamic variable
-        letters[`letter${i + 1}`] = letter;
-
-        // Count vowels and consonants
-        if (vowels.includes(letter)) {
-            vowelCount++;  // Count vowels
-        } else if (/[a-zA-Z]/.test(letter)) {
-            consonantCount++;  // Count consonants (letters only)
+        // Check if the letter is a vowel or consonant
+        if (vowelsSet.has(letter)) {
+            vowelCount++;
+        } else {
+            consonantCount++;
         }
     }
 
-    // Log the results
+    // Log word details for debugging
     console.log('Word:', word);
-    console.log('Letter count:', letterCount);
+    console.log('Letter count:', lowerCaseWord.length);
     console.log('Vowel count:', vowelCount);
     console.log('Consonant count:', consonantCount);
     console.log('Individual Letters:', letters);
 
-    return { letterCount, vowelCount, consonantCount, letters };
+    // Return word details as an object
+    return { letterCount: lowerCaseWord.length, vowelCount, consonantCount, letters };
 }
 
-// Function to listen for button clicks and compare with the selected word
+// Function to add event listeners for button clicks
 function addButtonClickListener(wordDetails, body, randomWord) {
-    const randomWordLower = randomWord.toLowerCase();  // Convert random word to lowercase for case-insensitive comparison
-    body.addEventListener("click", function (event) {
-        if (event.target.tagName === "BUTTON") {
-            const clickedWord = event.target.textContent.toLowerCase();  // Convert clicked word to lowercase
-            let matchingDetails = [];
-            let matchedLetters = new Set();  // Track matched letters to avoid duplicate logging
+    const randomWordSet = new Set(randomWord.toLowerCase()); // Convert random word to a set of letters
+    const vowelsSet = new Set('aeiou'); // Set of vowels
 
-            // Compare vowels count
-            const clickedVowels = clickedWord.split('').filter(letter => 'aeiou'.includes(letter)).length;
-            if (clickedVowels === wordDetails.vowelCount) {
+    // Listen for click events on the body
+    body.addEventListener("click", function (event) {
+        if (event.target.tagName === "BUTTON") { // Ensure the clicked element is a button
+            const clickedWord = event.target.textContent.toLowerCase(); // Get button text
+            const clickedWordSet = new Set(clickedWord); // Convert clicked word into a set of letters
+            let matchingDetails = []; // Array to store matching details
+
+            // Compare vowel count between the clicked word and the selected word
+            const clickedVowelCount = [...clickedWord].filter(letter => vowelsSet.has(letter)).length;
+            if (clickedVowelCount === wordDetails.vowelCount) {
                 matchingDetails.push("matching vowels");
             }
 
-            // Compare consonants count
-            const clickedConsonants = clickedWord.split('').filter(letter => /[a-zA-Z]/.test(letter) && !'aeiou'.includes(letter)).length;
-            if (clickedConsonants === wordDetails.consonantCount) {
+            // Compare consonant count between the clicked word and the selected word
+            const clickedConsonantCount = [...clickedWord].filter(letter => !vowelsSet.has(letter) && /[a-z]/.test(letter)).length;
+            if (clickedConsonantCount === wordDetails.consonantCount) {
                 matchingDetails.push("matching consonants");
             }
 
-            // Compare individual letters (without duplicating matches)
-            Object.keys(wordDetails.letters).forEach(key => {
-                const letter = wordDetails.letters[key];
-
-                // If the letter is found in the clicked word and has not been matched yet, log it
-                if (clickedWord.includes(letter) && !matchedLetters.has(letter)) {
+            // Check for matching letters using sets
+            [...randomWordSet].forEach(letter => {
+                if (clickedWordSet.has(letter)) {
                     matchingDetails.push(`matching ${letter}`);
-                    matchedLetters.add(letter);  // Mark this letter as matched
                 }
             });
 
-            // Log matching details 
+            // Log matches or indicate no match found
             if (matchingDetails.length > 0) {
                 console.log("Matches found:", matchingDetails.join(", "));
             } else {
                 console.log("No matches found for:", clickedWord);
             }
 
-            // Only log "Correct word selected!" if the clicked word is the random word
-            if (clickedWord === randomWordLower) {
+            // Check if the clicked word is the correct random word
+            if (clickedWord === randomWord) {
                 console.log("Correct word selected!");
             }
         }
