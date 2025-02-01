@@ -8,10 +8,9 @@
     <link rel="stylesheet" href="page.css">
     <link rel="stylesheet" href="container.css">
     <script defer src="game.js"></script>
-    <!-- <script defer src="audio.js"></script>
-    <audio id="elevmus" loop>
-        <source src="elevmus.mp3" type="audio/mp3">
-    </audio> -->
+    <audio loop>
+        <source src="elevmus.mp3">
+    </audio>
 </head>
 
 <body>
@@ -70,17 +69,19 @@
         </p>
     </div>
     <div class="container">
-        <div class="title">CONTROL PANEL</div>
+        <div class="title">DECRYPTION</div>
+        <div class="subtitle">A random word has been selected in the body of text to the left. Click on words to
+            unlock clues about the hidden word.</div>
         <div class="button-card">
-            <button class="button1">VOWEL COUNT</button><button class="button2">CONSONANT
+            <button class="button-general button1">VOWEL COUNT</button><button class="button-general button2">CONSONANT
                 COUNT</button>
         </div>
         <div class="button-card">
-            <button class="button3">LETTER COUNT</button><button class="button4">LETTER MATCH</button>
+            <button class="button-general inactive-button">LETTER COUNT</button><button
+                class="button-general inactive-button">MATCHING LETTERS</button>
         </div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <div><button class="button-card button-general music">TOGGLE MUSIC</button></div>
+        <div class="placeholder"></div>
     </div>
 </body>
 
