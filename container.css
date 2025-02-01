@@ -1,8 +1,11 @@
 .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     right: 0;
     width: 50vw; 
-    margin: 0; 
-    padding: 30px; 
+    margin-left: 80px; 
+    margin-right: 80px; 
     box-sizing: border-box; 
     text-indent: 0px;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -15,3 +18,72 @@
     left: 0;
     width: 50vw; 
 }
+
+.title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.button-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* BUTTONS */
+.button1 {
+    padding: 16px;
+    border-radius: 12px;
+    background-color: rgb(37, 87, 211);
+    outline: 4px solid rgb(28, 58, 208);
+    
+}
+.button1:hover {
+    background-color: rgb(42, 113, 190);
+    outline: 4px solid rgb(5, 26, 131);
+    outline-offset: 0px;
+}
+
+.button2 {
+    padding: 16px;
+    border-radius: 12px;
+    background-color: rgb(189, 41, 51);
+    outline: 4px solid rgb(161, 14, 24);
+    
+}
+.button2:hover {
+    background-color: rgb(202, 63, 72);
+    outline: 4px solid rgb(119, 11, 18);
+    outline-offset: 0px;
+}
+
+.button3 {
+    padding: 16px;
+    border-radius: 12px;
+    background-color: rgb(220, 161, 0);
+    outline: 4px solid rgb(173, 126, 8);
+    
+}
+.button3:hover {
+    background-color: rgb(219, 171, 41);
+    outline: 4px solid rgb(135, 98, 4);
+    outline-offset: 0px;
+}
+
+.button4 {
+    padding: 16px;
+    border-radius: 12px;
+    background-color: rgb(110, 5, 115);
+    outline: 4px solid rgb(75, 4, 79);
+    
+}
+.button4:hover {
+    background-color: rgb(117, 30, 122);
+    outline: 4px solid rgb(45, 1, 47);
+    outline-offset: 0px;
+}
+/* END BUTTONS */

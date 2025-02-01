@@ -3,7 +3,8 @@ p {
 }
 
 body {
-    flex-direction: column;
+    display: flex;
+
     margin: 0; 
     padding: 30px; 
     box-sizing: border-box; 
@@ -37,3 +38,6 @@ button {
     outline-offset: 0px;
   }
 
+.header {
+  margin-top: -9px;
+}
