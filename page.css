@@ -3,7 +3,7 @@ p {
 }
 
 body {
-    width: 50vw; 
+    flex-direction: column;
     margin: 0; 
     padding: 30px; 
     box-sizing: border-box; 

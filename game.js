@@ -1,7 +1,12 @@
 
 // Wait for the entire HTML document to be fully loaded before executing
 document.addEventListener("DOMContentLoaded", function () {
-    const body = document.body; // Reference to the body element
+    const letterDiv = document.getElementById("letter"); // Get the #letter div
+    if (!letterDiv) {
+        console.log("No element with id='letter' found.");
+        return;
+    }
+
     const textNodes = []; // Array to store text nodes
     let allText = ""; // Store all text content for later word selection
 
@@ -22,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    extractTextNodes(body); // Start extraction from the body
+    extractTextNodes(letterDiv); // Start extraction from #letter div
 
     // Replace each text node with buttons for each word
     textNodes.forEach(node => {

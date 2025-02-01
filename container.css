@@ -1,0 +1,17 @@
+.container {
+    right: 0;
+    width: 50vw; 
+    margin: 0; 
+    padding: 30px; 
+    box-sizing: border-box; 
+    text-indent: 0px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(226, 232, 224);
+}
+
+.body-text {
+    left: 0;
+    width: 50vw; 
+}
