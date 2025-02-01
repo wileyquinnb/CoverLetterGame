@@ -110,6 +110,12 @@ function addButtonClickListener(wordDetails, body, randomWord) {
     const randomWordStripped = randomWord.replace(/[^a-z0-9]/gi, "").toLowerCase(); // Remove non-alphanumeric characters
     const vowelsSet = new Set('aeiou'); // Set of vowels
 
+    // Get buttons by ID
+    const b1 = document.getElementById("b1"); // Vowel count button
+    const b2 = document.getElementById("b2"); // Consonant count button
+    const b3 = document.getElementById("b3"); // Letter count button
+    const b4 = document.getElementById("b4"); // Matching letters button
+
     // Listen for click events on the body
     body.addEventListener("click", function (event) {
         if (event.target.tagName === "BUTTON") { // Ensure the clicked element is a button
@@ -122,20 +128,28 @@ function addButtonClickListener(wordDetails, body, randomWord) {
             const clickedVowelCount = [...clickedWordStripped].filter(letter => vowelsSet.has(letter)).length;
             if (clickedVowelCount === wordDetails.vowelCount) {
                 matchingDetails.push("matching vowels");
+                if (b1) b1.textContent = `VOWEL COUNT: ${wordDetails.vowelCount}`; // Update b1 if match found
             }
 
             // Compare consonant count between the clicked word and the selected word
             const clickedConsonantCount = [...clickedWordStripped].filter(letter => !vowelsSet.has(letter) && /[a-z]/.test(letter)).length;
             if (clickedConsonantCount === wordDetails.consonantCount) {
                 matchingDetails.push("matching consonants");
+                if (b2) b2.textContent = `CONSONANT COUNT: ${wordDetails.consonantCount}`; // Update b2 if match found
+            }
+
+            // Check for matching word length
+            if (clickedWordStripped.length === wordDetails.letterCount) {
+                matchingDetails.push("matching length");
+                if (b3) b3.textContent = `LETTER COUNT: ${wordDetails.letterCount}`; // Update b3 if match found
             }
 
             // Check for matching letters using sets
-            [...randomWordStripped].forEach(letter => {
-                if (clickedWordSet.has(letter)) {
-                    matchingDetails.push(`matching ${letter}`);
-                }
-            });
+            let matchingLetters = [...randomWordStripped].filter(letter => clickedWordSet.has(letter)); // Get matching letters
+            if (matchingLetters.length > 0) {
+                matchingDetails.push(`matching letters: ${matchingLetters.join(", ")}`);
+                if (b4) b4.textContent = matchingLetters.map(letter => letter.toUpperCase()).join(", "); // Update b4 with matching letters in uppercase
+            }
 
             // Log matches or indicate no match found
             if (matchingDetails.length > 0) {
