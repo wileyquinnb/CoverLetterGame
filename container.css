@@ -3,9 +3,9 @@
     flex-direction: column;
     justify-content: space-around;
     right: 0;
-    width: 50vw; 
-    margin-left: 80px; 
-    margin-right: 80px; 
+    width: 30vw; 
+    margin-left: 10vw; 
+    margin-right: 10vw; 
     box-sizing: border-box; 
     text-indent: 0px;
     font-family:"roboto-slab", serif;
@@ -42,7 +42,7 @@
 .button-card {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     font-size: 16px;
     font-weight: 600;
 }
@@ -54,6 +54,15 @@
     padding: 10px;
     border-radius: 2px;
     text-align: center;
+}
+
+.counter {
+    width: 30vw;
+}
+.counter:hover {
+    cursor: default;
+    background-color: rgb(58, 99, 58);
+    outline-color: rgb(58, 99, 58);;
 }
 
 .button1 {
@@ -118,7 +127,16 @@
 
 .placeholder {
     height: 200px;
-    width: 35vw;
+    width: 30vw;
     background-color: rgb(51, 92, 51);
     margin: 0 auto;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.textbox {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 18px;
+    padding-right: 18px;
 }

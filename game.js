@@ -110,53 +110,6 @@ function addButtonClickListener(wordDetails, body, randomWord) {
     const randomWordStripped = randomWord.replace(/[^a-z0-9]/gi, "").toLowerCase(); // Remove non-alphanumeric characters
     const vowelsSet = new Set('aeiou'); // Set of vowels
 
-    // Listen for click events on the body
-    body.addEventListener("click", function (event) {
-        if (event.target.tagName === "BUTTON") { // Ensure the clicked element is a button
-            const clickedWord = event.target.textContent.toLowerCase(); // Get button text
-            const clickedWordStripped = clickedWord.replace(/[^a-z0-9]/gi, ""); // Remove non-alphanumeric characters
-            const clickedWordSet = new Set(clickedWordStripped); // Convert clicked word into a set of letters
-            let matchingDetails = []; // Array to store matching details
-
-            // Compare vowel count between the clicked word and the selected word
-            const clickedVowelCount = [...clickedWordStripped].filter(letter => vowelsSet.has(letter)).length;
-            if (clickedVowelCount === wordDetails.vowelCount) {
-                matchingDetails.push("matching vowels");
-            }
-
-            // Compare consonant count between the clicked word and the selected word
-            const clickedConsonantCount = [...clickedWordStripped].filter(letter => !vowelsSet.has(letter) && /[a-z]/.test(letter)).length;
-            if (clickedConsonantCount === wordDetails.consonantCount) {
-                matchingDetails.push("matching consonants");
-            }
-
-            // Check for matching letters using sets
-            [...randomWordStripped].forEach(letter => {
-                if (clickedWordSet.has(letter)) {
-                    matchingDetails.push(`matching ${letter}`);
-                }
-            });
-
-            // Log matches or indicate no match found
-            if (matchingDetails.length > 0) {
-                console.log("Matches found:", matchingDetails.join(", "));
-            } else {
-                console.log("No matches found for:", clickedWord);
-            }
-
-            // Check if the clicked word is the correct random word (ignoring non-alphanumeric characters)
-            if (clickedWordStripped === randomWordStripped) {
-                console.log("Correct word selected!");
-            }
-        }
-    });
-}
-
-// Function to add event listeners for button clicks
-function addButtonClickListener(wordDetails, body, randomWord) {
-    const randomWordStripped = randomWord.replace(/[^a-z0-9]/gi, "").toLowerCase(); // Remove non-alphanumeric characters
-    const vowelsSet = new Set('aeiou'); // Set of vowels
-
     // Get buttons by ID
     const b1 = document.getElementById("b1"); // Vowel count button
     const b2 = document.getElementById("b2"); // Consonant count button
@@ -167,6 +120,13 @@ function addButtonClickListener(wordDetails, body, randomWord) {
     let revealedLetters = new Set(); // Store already revealed letters for b4
     let firstTimeB4 = true; // Track if b4 is being updated for the first time
 
+    // Select a random letter from randomWordStripped
+    const randomLetter = randomWordStripped[Math.floor(Math.random() * randomWordStripped.length)].toUpperCase();
+
+    // Display hint
+    const logDiv = document.getElementById("log"); // Log div for messages
+    logDiv.innerHTML += `Hint: ${randomLetter}`;
+
     // Listen for click events on the body
     body.addEventListener("click", function (event) {
         const letterDiv = document.getElementById("letter");
@@ -174,6 +134,7 @@ function addButtonClickListener(wordDetails, body, randomWord) {
             const clickedWord = event.target.textContent.toLowerCase(); // Get button text
             const clickedWordStripped = clickedWord.replace(/[^a-z0-9]/gi, ""); // Remove non-alphanumeric characters
             const clickedWordSet = new Set(clickedWordStripped); // Convert clicked word into a set of letters
+            const logDiv = document.getElementById("log"); // Log div for messages
 
             // Compare vowel count
             const clickedVowelCount = [...clickedWordStripped].filter(letter => vowelsSet.has(letter)).length;
@@ -201,6 +162,9 @@ function addButtonClickListener(wordDetails, body, randomWord) {
             if (updatedButtons.size >= 1) {
                 b3.classList.remove("inactive-button");
                 b3.classList.add("button3");
+                if (!logDiv.innerHTML.includes("Letter Count Unlocked!")) {
+                    logDiv.innerHTML += "<br>Letter Count Unlocked!";
+                }
             }
 
             // Ensure b4 updates only if at least two of b1, b2, or b3 have been updated
@@ -224,11 +188,21 @@ function addButtonClickListener(wordDetails, body, randomWord) {
                 if (updatedButtons.size >= 2 && b4) {
                     b4.classList.remove("inactive-button");
                     b4.classList.add("button4");
+                    if (!logDiv.innerHTML.includes("Matching Letters Unlocked!")) {
+                        logDiv.innerHTML += "<br>Matching Letters Unlocked!";
+                    }
                 }
+            }
+            // Check if the clicked word matches the random word
+            if (clickedWordStripped === randomWordStripped) {
+                logDiv.innerHTML += "<br>Word Found! You Win!";
+                return;
             }
         }
     });
 }
+
+
 
 
 
@@ -247,7 +221,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-// Change clicked word to gray
+// Change clicked word color
 document.addEventListener("DOMContentLoaded", function () {
     const letterDiv = document.getElementById("letter");
     if (letterDiv) {
