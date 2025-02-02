@@ -9,11 +9,11 @@ body {
     padding: 30px; 
     box-sizing: border-box; 
     text-indent: 0px;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 18px;
-    font-weight: bold;
+    font-family:"roboto-slab", serif;
+    font-size: 16px;
+    font-weight: 420; /* lol */
     color: rgb(226, 232, 224);
-    background-color: rgb(67, 113, 67);
+    background-color: rgb(58, 99, 58);
 }
 
 button {

@@ -169,7 +169,8 @@ function addButtonClickListener(wordDetails, body, randomWord) {
 
     // Listen for click events on the body
     body.addEventListener("click", function (event) {
-        if (event.target.tagName === "BUTTON") { // Ensure the clicked element is a button
+        const letterDiv = document.getElementById("letter");
+        if (event.target.tagName === "BUTTON" && letterDiv.contains(event.target)) { // Ensure the clicked element is a button within #letter
             const clickedWord = event.target.textContent.toLowerCase(); // Get button text
             const clickedWordStripped = clickedWord.replace(/[^a-z0-9]/gi, ""); // Remove non-alphanumeric characters
             const clickedWordSet = new Set(clickedWordStripped); // Convert clicked word into a set of letters
@@ -192,8 +193,6 @@ function addButtonClickListener(wordDetails, body, randomWord) {
             if ((updatedButtons.has("b1") || updatedButtons.has("b2")) && clickedWordStripped.length === wordDetails.letterCount && !updatedButtons.has("b3")) {
                 if (b3) {
                     b3.textContent = `LETTER COUNT: ${wordDetails.letterCount}`;
-                    // b3.classList.remove("inactive-button");
-                    // b3.classList.add("button3"); // Add the class after update
                 }
                 updatedButtons.add("b3");
             }
@@ -230,3 +229,33 @@ function addButtonClickListener(wordDetails, body, randomWord) {
         }
     });
 }
+
+
+
+// Click counter
+document.addEventListener("DOMContentLoaded", function () {
+    let count = 0;
+    const button = document.getElementById("bc");
+    const letterDiv = document.getElementById("letter");
+
+    letterDiv.addEventListener("click", function (event) {
+        if (event.target.tagName === "BUTTON") {
+            count++;
+            button.textContent = `CLICKS: ${count}`;
+        }
+    });
+});
+
+
+// Change clicked word to gray
+document.addEventListener("DOMContentLoaded", function () {
+    const letterDiv = document.getElementById("letter");
+    if (letterDiv) {
+        const buttons = letterDiv.getElementsByTagName("button");
+        for (let button of buttons) {
+            button.addEventListener("click", function () {
+                button.style.color = "rgb(153, 202, 146)";
+            });
+        }
+    }
+});

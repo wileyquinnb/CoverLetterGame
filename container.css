@@ -8,9 +8,9 @@
     margin-right: 80px; 
     box-sizing: border-box; 
     text-indent: 0px;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family:"roboto-slab", serif;
     font-size: 40px;
-    font-weight: bold;
+    font-weight: 600;
     color: rgb(226, 232, 224);
 }
 
@@ -23,6 +23,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    font-family: "pf-fuel-decay", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 80px;
 }
 
 .subtitle {
@@ -39,79 +43,82 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 
 /* BUTTONS */
 .button-general {
     width: 200px;
-    padding: 16px;
-    border-radius: 12px;
+    padding: 10px;
+    border-radius: 2px;
     text-align: center;
 }
 
 .button1 {
     background-color: rgb(37, 87, 211);
-    outline: 4px solid rgb(28, 58, 208);   
+    outline: 3px solid rgb(28, 58, 208);   
 }
 .button1:hover {
-    background-color: rgb(42, 113, 190);
-    outline: 4px solid rgb(5, 26, 131);
+    background-color: rgb(26, 106, 190);
+    outline: 3px solid rgb(8, 31, 143);
     outline-offset: 0px;
 }
 
 .button2 {
     background-color: rgb(189, 41, 51);
-    outline: 4px solid rgb(161, 14, 24);    
+    outline: 3px solid rgb(161, 14, 24);    
 }
 .button2:hover {
     background-color: rgb(202, 63, 72);
-    outline: 4px solid rgb(119, 11, 18);
+    outline: 3px solid rgb(119, 11, 18);
     outline-offset: 0px;
 }
 
 .button3 {
     background-color: rgb(220, 161, 0);
-    outline: 4px solid rgb(173, 126, 8);    
+    outline: 3px solid rgb(173, 126, 8);    
 }
 .button3:hover {
     background-color: rgb(219, 171, 41);
-    outline: 4px solid rgb(135, 98, 4);
+    outline: 3px solid rgb(153, 107, 0);
     outline-offset: 0px;
 }
 
 .button4 {
     background-color: rgb(110, 5, 115);
-    outline: 4px solid rgb(75, 4, 79);    
+    outline: 3px solid rgb(75, 4, 79);    
 }
 .button4:hover {
     background-color: rgb(117, 30, 122);
-    outline: 4px solid rgb(45, 1, 47);
+    outline: 3px solid rgb(45, 1, 47);
     outline-offset: 0px;
 }
 
 .inactive-button {
     background-color: rgb(129, 129, 129);
-    outline: 4px solid rgb(82, 82, 82);
+    outline: 3px solid rgb(82, 82, 82);
 }
 .inactive-button:hover {
     background-color: rgb(136, 136, 136);
-    outline: 4px solid rgb(82, 82, 82);
+    outline: 3px solid rgb(82, 82, 82);
 }
 
 .music {
     background: rgb(79, 109, 79);
-    outline: 4px solid rgb(44, 81, 44);
+    outline: 3px solid rgb(44, 81, 44);
     margin: 0 auto;
 }
 .music:hover {
     background: rgb(110, 147, 110);
-    outline: 4px solid rgb(44, 81, 44);
+    outline: 3px solid rgb(44, 81, 44);
 }
 /* END BUTTONS */
 
 .placeholder {
     height: 200px;
+    width: 35vw;
+    background-color: rgb(51, 92, 51);
+    margin: 0 auto;
 }

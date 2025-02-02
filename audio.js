@@ -1,8 +1,14 @@
-// Get the audio element
-var audio = document.getElementById('elevmus');
 
-// Unmute the audio after the page loads
-window.addEventListener('load', function () {
-    audio.muted = false;
-    audio.play();
+
+const audio = document.getElementById("elevmus");
+const button = document.getElementById("music");
+
+button.addEventListener("click", () => {
+    if (audio.paused) {
+        audio.play();
+        button.textContent = "Pause";
+    } else {
+        audio.pause();
+        button.textContent = "Play";
+    }
 });
