@@ -29,12 +29,12 @@ button {
     color: inherit; 
     text-align: inherit; 
     cursor: pointer; 
-    border-radius: 2px;
+    /* border-radius: 2px; */
   }
 
   button:hover {
     background: rgb(79, 109, 79);
-    outline: 2px solid rgb(44, 81, 44);
+    outline: 3px solid rgb(44, 81, 44);
     outline-offset: 0px;
   }
 

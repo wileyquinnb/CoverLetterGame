@@ -27,16 +27,19 @@
     font-weight: 400;
     font-style: normal;
     font-size: 80px;
+    padding-bottom: 30px;
+    padding-top: 20px;
 }
 
 .subtitle {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    width: 450px;
+    width: 30vw;
     text-align: center;
     font-size: 15px;
     margin: 0 auto;
+    padding-bottom: 20px;
 }
 
 .button-card {
@@ -45,6 +48,7 @@
     justify-content: space-between;
     font-size: 16px;
     font-weight: 600;
+    padding-bottom: 20px;
 }
 
 
@@ -52,7 +56,7 @@
 .button-general {
     width: 200px;
     padding: 10px;
-    border-radius: 2px;
+    /* border-radius: 1px; */
     text-align: center;
 }
 
@@ -66,18 +70,20 @@
 }
 
 .button1 {
-    background-color: rgb(37, 87, 211);
+    background-image: linear-gradient(60deg, rgb(37, 87, 211), rgb(66, 111, 222));
+    /* background-color: rgb(37, 87, 211); */
     outline: 3px solid rgb(28, 58, 208);   
 }
 .button1:hover {
-    background-color: rgb(26, 106, 190);
-    outline: 3px solid rgb(8, 31, 143);
+    background-color: rgb(58, 103, 216);
+    outline: 3px solid rgb(15, 43, 183);
     outline-offset: 0px;
 }
 
 .button2 {
-    background-color: rgb(189, 41, 51);
-    outline: 3px solid rgb(161, 14, 24);    
+    background-image: linear-gradient(60deg, rgb(189, 41, 51), rgb(198, 67, 76));
+    /* background-color: rgb(189, 41, 51); */
+    outline: 3px solid rgb(153, 13, 22);    
 }
 .button2:hover {
     background-color: rgb(202, 63, 72);
@@ -86,17 +92,19 @@
 }
 
 .button3 {
-    background-color: rgb(220, 161, 0);
-    outline: 3px solid rgb(173, 126, 8);    
+    background-image: linear-gradient(60deg, rgb(177, 130, 0), rgb(212, 159, 13));
+    /* background-color: rgb(195, 143, 0); */
+    outline: 3px solid rgb(146, 106, 4);    
 }
 .button3:hover {
-    background-color: rgb(219, 171, 41);
-    outline: 3px solid rgb(153, 107, 0);
+    background-color: rgb(204, 155, 20);
+    outline: 3px solid rgb(138, 97, 0);
     outline-offset: 0px;
 }
 
 .button4 {
-    background-color: rgb(110, 5, 115);
+    background-image: linear-gradient(60deg, rgb(110, 5, 115), rgb(139, 33, 145));
+    /* background-color: rgb(110, 5, 115); */
     outline: 3px solid rgb(75, 4, 79);    
 }
 .button4:hover {

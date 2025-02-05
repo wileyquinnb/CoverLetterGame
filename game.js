@@ -105,6 +105,8 @@ function calculateWordDetails(word) {
     return { letterCount: cleanedWord.length, vowelCount, consonantCount, letters };
 }
 
+
+
 // Function to add event listeners for button clicks
 function addButtonClickListener(wordDetails, body, randomWord) {
     const randomWordStripped = randomWord.replace(/[^a-z0-9]/gi, "").toLowerCase(); // Remove non-alphanumeric characters
@@ -120,12 +122,16 @@ function addButtonClickListener(wordDetails, body, randomWord) {
     let revealedLetters = new Set(); // Store already revealed letters for b4
     let firstTimeB4 = true; // Track if b4 is being updated for the first time
 
-    // Select a random letter from randomWordStripped
-    const randomLetter = randomWordStripped[Math.floor(Math.random() * randomWordStripped.length)].toUpperCase();
+    // Determine letter count label for b3
+    const letterCountLabel = randomWordStripped.length > 6 ? ">6" : "<7";
+
+    // Select a random vowel from randomWordStripped
+    const vowelsInWord = [...randomWordStripped].filter(letter => vowelsSet.has(letter));
+    const randomVowel = vowelsInWord.length > 0 ? vowelsInWord[Math.floor(Math.random() * vowelsInWord.length)].toUpperCase() : "No vowels"; // Choose random vowel or display fallback
 
     // Display hint
     const logDiv = document.getElementById("log"); // Log div for messages
-    logDiv.innerHTML += `Hint: ${randomLetter}`;
+    logDiv.innerHTML += `Hint: ${randomVowel}`;
 
     // Listen for click events on the body
     body.addEventListener("click", function (event) {
@@ -150,25 +156,22 @@ function addButtonClickListener(wordDetails, body, randomWord) {
                 updatedButtons.add("b2");
             }
 
-            // Ensure b3 updates only if b1 or b2 has been updated
-            if ((updatedButtons.has("b1") || updatedButtons.has("b2")) && clickedWordStripped.length === wordDetails.letterCount && !updatedButtons.has("b3")) {
+            // Add the CSS class and update text in b3 after 1 button is updated
+            if (updatedButtons.size >= 1 && !updatedButtons.has("b3")) {
                 if (b3) {
-                    b3.textContent = `LETTER COUNT: ${wordDetails.letterCount}`;
+                    b3.textContent = `LETTER COUNT: ${letterCountLabel}`;
+                    b3.classList.remove("inactive-button");
+                    b3.classList.add("button3");
                 }
                 updatedButtons.add("b3");
-            }
 
-            // Add the CSS class to b3 after 1 button updates
-            if (updatedButtons.size >= 1) {
-                b3.classList.remove("inactive-button");
-                b3.classList.add("button3");
                 if (!logDiv.innerHTML.includes("Letter Count Unlocked!")) {
                     logDiv.innerHTML += "<br>Letter Count Unlocked!";
                 }
             }
 
-            // Ensure b4 updates only if at least two of b1, b2, or b3 have been updated
-            if (updatedButtons.size >= 2) {
+            // Ensure b4 updates only if b1 and b2 have both been updated
+            if (updatedButtons.has("b1") && updatedButtons.has("b2")) {
                 let matchingLetters = [...randomWordStripped].filter(letter => clickedWordSet.has(letter));
                 matchingLetters = matchingLetters.filter(letter => !revealedLetters.has(letter)); // Filter out duplicates
                 matchingLetters.forEach(letter => revealedLetters.add(letter)); // Add new matches to the set
@@ -184,8 +187,8 @@ function addButtonClickListener(wordDetails, body, randomWord) {
                     }
                 }
 
-                // Add the CSS class to b4 after at least two buttons are updated
-                if (updatedButtons.size >= 2 && b4) {
+                // Add the CSS class to b4 after b1 and b2 are updated
+                if (b4) {
                     b4.classList.remove("inactive-button");
                     b4.classList.add("button4");
                     if (!logDiv.innerHTML.includes("Matching Letters Unlocked!")) {
@@ -193,6 +196,7 @@ function addButtonClickListener(wordDetails, body, randomWord) {
                     }
                 }
             }
+
             // Check if the clicked word matches the random word
             if (clickedWordStripped === randomWordStripped) {
                 logDiv.innerHTML += "<br>Word Found! You Win!";
@@ -201,8 +205,6 @@ function addButtonClickListener(wordDetails, body, randomWord) {
         }
     });
 }
-
-
 
 
 
@@ -232,4 +234,46 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
     }
+});
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const letterDiv = document.getElementById("letter");
+
+    if (!letterDiv) return;
+
+    letterDiv.addEventListener("mouseover", function (event) {
+        if (event.target.tagName === "BUTTON") {
+            const button = event.target;
+            const alphanumericCount = (button.textContent.match(/[a-zA-Z0-9]/g) || []).length;
+
+            let tooltip = document.createElement("div");
+            tooltip.className = "tooltip";
+            tooltip.textContent = alphanumericCount;
+            document.body.appendChild(tooltip);
+
+            tooltip.style.position = "absolute";
+            tooltip.style.background = "rgb(44, 81, 44)";
+            tooltip.style.color = "white";
+            tooltip.style.padding = "5px 10px";
+            // tooltip.style.borderRadius = "5px";
+            tooltip.style.fontSize = "12px";
+            tooltip.style.pointerEvents = "none";
+            tooltip.style.zIndex = "1000";
+
+            requestAnimationFrame(() => {
+                const rect = button.getBoundingClientRect();
+                const tooltipRect = tooltip.getBoundingClientRect();
+
+                tooltip.style.left = `${rect.left + window.scrollX + (rect.width - tooltipRect.width) / 2}px`;
+                tooltip.style.top = `${rect.top + window.scrollY - tooltipRect.height + 0}px`;
+            });
+
+            button.addEventListener("mouseleave", function removeTooltip() {
+                tooltip.remove();
+                button.removeEventListener("mouseleave", removeTooltip);
+            });
+        }
+    });
 });
