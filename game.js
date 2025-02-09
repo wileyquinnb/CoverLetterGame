@@ -107,7 +107,7 @@ function calculateWordDetails(word) {
 
 
 
-// Function to add event listeners for button clicks
+// Function to match words and button updates
 function addButtonClickListener(wordDetails, body, randomWord) {
     const randomWordStripped = randomWord.replace(/[^a-z0-9]/gi, "").toLowerCase(); // Remove non-alphanumeric characters
     const vowelsSet = new Set('aeiou'); // Set of vowels
@@ -237,7 +237,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
+// Function that creates tooltip for letter count
 document.addEventListener("DOMContentLoaded", function () {
     const letterDiv = document.getElementById("letter");
 
@@ -277,3 +277,53 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+
+
+// Function to make layout mobile friendly beacuse I'm a dumbass and didn't design mobile-first so now I'm suffering the consequences and too stubborn to redo the project
+function adjustLayout() {
+    const maxAspectRatio = 0.9;
+    const currentAspectRatio = window.innerWidth / window.innerHeight;
+    const d2 = document.getElementById('d2');
+    const d1 = document.getElementById('d1');
+    const b2 = document.getElementById('b2');
+    const b4 = document.getElementById('b4');
+
+    let b2Container = document.getElementById('b2-container');
+    let b4Container = document.getElementById('b4-container');
+
+    if (currentAspectRatio < maxAspectRatio) {
+        if (!b2Container) {
+            b2Container = document.createElement('div');
+            b2Container.id = 'b2-container';
+            b2Container.className = 'button-card';
+            b2.parentNode.removeChild(b2);
+            b2Container.appendChild(b2);
+        }
+
+        if (!b4Container) {
+            b4Container = document.createElement('div');
+            b4Container.id = 'b4-container';
+            b4Container.className = 'button-card';
+            b4.parentNode.removeChild(b4);
+            b4Container.appendChild(b4);
+        }
+
+        d2.parentNode.insertBefore(b2Container, d1.nextSibling);
+        b2Container.parentNode.insertBefore(b4Container, b2Container.nextSibling);
+    } else {
+        if (b2Container) {
+            b2Container.parentNode.removeChild(b2Container);
+            d1.appendChild(b2);
+        }
+
+        if (b4Container) {
+            b4Container.parentNode.removeChild(b4Container);
+            d2.appendChild(b4);
+        }
+    }
+}
+
+window.addEventListener('resize', adjustLayout);
+window.addEventListener('load', adjustLayout);
+

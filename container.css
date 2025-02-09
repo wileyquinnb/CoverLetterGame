@@ -54,7 +54,7 @@
 
 /* BUTTONS */
 .button-general {
-    width: 200px;
+    width: 13vw;
     padding: 10px;
     /* border-radius: 1px; */
     text-align: center;
@@ -147,4 +147,148 @@
     padding-bottom: 12px;
     padding-left: 18px;
     padding-right: 18px;
+}
+
+
+
+@media (max-aspect-ratio: 5/3){
+    
+    .subtitle {
+        font-size: 12px;
+        font-weight: 400;
+    }
+    
+    .button-general {
+        width: 13vw;
+        padding: 10px;
+        text-align: center;
+    }
+    
+    .counter {
+        width: 30vw;
+    }
+
+    .button-card {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        font-size: 12px;
+        font-weight: 600;
+        padding-bottom: 20px;
+    }
+}
+
+
+@media (max-aspect-ratio: 5.5/4){
+    .container {
+        height: 55vw;
+        width: 43vw; 
+        margin-left: 7vw; 
+        margin-right: 0vw; 
+    }
+
+    .button-card {
+        padding-bottom: 0;
+    }
+
+    .button-general {
+        width: 18vw;
+    }
+    
+    .title {
+        font-size: 60px;
+        padding-bottom: 20px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .subtitle {
+        width: 43vw;
+        padding-bottom: 0;
+    }
+
+    .counter {
+        width: 43vw;
+        padding: 0;
+    }
+
+    .placeholder {
+        width: 43vw;
+        padding-bottom: 0;
+    }
+}
+
+@media (max-aspect-ratio: 1/1){
+
+    .button-general {
+        width: 17vw;
+        margin: 0 auto;
+    }
+    
+    .counter {
+        width: 43vw;
+        padding: 0;
+        margin: 0 auto;
+    }
+
+    .container {
+        height: 70vw;
+        width: 43vw; 
+        margin-left: 7vw; 
+        margin-right: 0vw; 
+    }
+
+    .placeholder {
+        width: 43vw;
+        padding-bottom: 0;
+    }
+
+}
+
+@media (max-aspect-ratio: .9/1){
+    
+    .title {
+        font-size: 40px;
+    }
+    
+    .subtitle {
+        width: 33vw;
+        padding-bottom: 0;
+        text-align: left;
+    }
+
+    .button-general {
+        width: 30vw;
+        border: 5px;
+        border-radius: 5vw;
+        margin: 0 auto;
+    }
+    
+    .counter {
+        width: 40vw;
+        padding: 0;
+        margin: 0 auto;
+    }
+
+    .container {
+        position: fixed;
+        height: 100vw;
+        width: 40vw; 
+        margin-left: 4vw; 
+        margin-right: 0vw; 
+    }
+
+    .placeholder {
+        width: 35vw;
+        padding-bottom: 0;
+    }
+
+}
+
+@media (max-aspect-ratio: .7/1){
+
+    .container {
+        height: 125vw;
+    }
+
 }
